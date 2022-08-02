@@ -43,9 +43,8 @@ public class ProductController {
   @PutMapping("/{id}")
   public ResponseEntity<?> update(@RequestBody Product product, @PathVariable Long id) {
     try {
-      Product existProduct = service.get(id);
-      existProduct.update(product);
-      service.save(existProduct);
+      service.update(product,id);
+
       return new ResponseEntity<>(HttpStatus.OK);
     } catch (NoSuchElementException e) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);

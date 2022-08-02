@@ -1,20 +1,26 @@
 package com.example.estore.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Entity
+//@Entity
 public class Product {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+//  @Id
+//  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;
   private String skuNumber;
   private int quantity;
+
+  public Product() {
+  }
+
+  public Product(Long id, String name, String skuNumber, int quantity) {
+    this.id = id;
+    this.name = name;
+    this.skuNumber = skuNumber;
+    this.quantity = quantity;
+  }
 
   public Long getId() {
     return id;
