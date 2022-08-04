@@ -1,9 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Hello') {
+        stage('Compilation and Analysis') {
             steps {
-                echo 'Hello World'
+                echo 'chmod +x ./gradlew'
             }
         }
     }
