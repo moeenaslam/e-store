@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Compilation and Analysis') {
             steps {
-                echo 'chmod +x ./gradlew'
+                sh 'chmod +x ./gradlew'
             }
         }
     }
