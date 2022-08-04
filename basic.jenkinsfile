@@ -17,12 +17,14 @@ pipeline {
 
         stage('Deployment') {
             steps {
-                try {
-                    sh "pid=\$(lsof -i:8090 -t); kill -TERM \$pid "
-                    + "|| kill -KILL \$pid"
-                } catch (err){}
-                withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
-                    sh 'nohup java -jar -Xmx100m ./build/libs/e-store-0.0.1.jar &'
+                script {
+                    try {
+                        sh "pid=\$(lsof -i:8090 -t); kill -TERM \$pid "
+                            + "|| kill -KILL \$pid"
+                    } catch (err){}
+                    withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+                        sh 'nohup java -jar -Xmx100m ./build/libs/e-store-0.0.1.jar &'
+                    }
                 }
             }
         }
