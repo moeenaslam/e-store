@@ -41,7 +41,10 @@ pipeline {
 
         stage('Upload'){
                 steps{
-                        withAWS(region:"${region}", credentials:"${aws_credential}){s3Upload(file:"${api_name}", bucket:"${bucket}", path:"${api_name}/")}
+                        withAWS(region:"${region}", credentials:"${aws_credential}")
+                        {
+                        s3Upload(file:"${api_name}", bucket:"${bucket}", path:"${api_name}/")
+                        }
                 }
                 post {
                         success{
