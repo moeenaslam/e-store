@@ -41,10 +41,9 @@ pipeline {
 
         stage('Upload'){
                 steps{
-
                         withAWS(region:"${region}", credentials:"${aws_credential}")
                         {
-                        s3Upload file:"./build/libs/${api_name}-${api_version}.jar", bucket:"${bucket}"
+                        s3Upload(file:'./build/libs/e-store-0.0.1.jar', bucket:'e-store-builds', path:'')
                         }
                 }
                 post {
