@@ -1,5 +1,15 @@
 pipeline {
     agent any
+    environment {
+        aws_credential = "aws-1"
+        api_name = "e-store"
+        api_version = "0.0.1"
+        bucket = "e-store-builds"
+        region = "us-east-1"
+        api_res_url = "https://${bucket}.s3.${region}.amazonaws.com/${api_name}-${api_version}.jar"
+        notify_text = "image upload to s3 <br>${api_name}: <${api_res_url}>"
+
+    }
     stages {
         stage('Compilation and Analysis') {
             steps {
@@ -27,6 +37,22 @@ pipeline {
                     }
                 }
             }
+        }
+
+        stage('Upload'){
+                steps{
+                        withAWS(region:"${region}", credentials:"${aws_credential}){
+                            s3Upload(file:"${api_name}", bucket:"${bucket}", path:"${api_name}/")
+                        }
+                }
+                post {
+                        success{
+                            echo "${notify_text}<br>commit id: ${commitId}", status:"Success Upload"
+                        }
+                        failure{
+                            echo "Failed ,<br> see (<${env.BUILD_URL}>)", status:"Fail Upload"
+                        }
+                }
         }
     }
 }
