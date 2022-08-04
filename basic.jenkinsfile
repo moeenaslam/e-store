@@ -4,6 +4,8 @@ pipeline {
         stage('Compilation and Analysis') {
             steps {
                 sh 'chmod +x ./gradlew'
+                sh './gradlew clean'
+                sh './gradlew build'
             }
         }
     }
