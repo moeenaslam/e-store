@@ -43,7 +43,7 @@ pipeline {
                 steps{
                         withAWS(region:'us-east-1', credentials:'aws-1')
                         {
-                        s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'./build/libs/e-store-0.0.1.jar', bucket:'e-store-builds')
+                        s3Upload( file:'./build/libs/e-store-0.0.1.jar', bucket:'e-store-builds')
                         }
                 }
                 post {
