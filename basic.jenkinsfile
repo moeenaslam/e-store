@@ -4,10 +4,10 @@ pipeline {
         aws_credential = "aws-1"
         api_name = "e-store"
         api_version = "0.0.1"
-        bucket = "e-store-builds"
+        bucket = "estore-builds"
         region = "us-east-1"
         api_res_url = "https://${bucket}.s3.${region}.amazonaws.com/${api_name}-${api_version}.jar"
-        notify_text = "image upload to s3 <br>${api_name}: <${api_res_url}>"
+        notify_text = "artifact upload to s3 <br>${api_name}: <${api_res_url}>"
 
     }
     stages {
@@ -41,9 +41,9 @@ pipeline {
 
         stage('Upload'){
                 steps{
-                        withAWS(region:'us-east-1', credentials:'aws-1')
+                        withAWS(region:"${region}", credentials:"${aws_credential}")
                         {
-                        s3Upload( file:'./build/libs/e-store-0.0.1.jar', bucket:'e-store-builds')
+                        s3Upload( file:"./build/libs/${api_name}-${api_version}.jar", bucket:"${bucket}")
                         }
                 }
                 post {
