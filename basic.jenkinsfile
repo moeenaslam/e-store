@@ -48,7 +48,7 @@ pipeline {
                 }
                 post {
                         success{
-                            echo "${notify_text}<br>commit id: ${commitId}"
+                            echo "${notify_text}<br>"
                         }
                         failure{
                             echo "Failed ,<br> see (<${env.BUILD_URL}>)"
